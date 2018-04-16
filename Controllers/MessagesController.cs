@@ -6,6 +6,10 @@ using Microsoft.Bot.Builder.Dialogs;
 using System.Web.Http.Description;
 using System.Net.Http;
 using SimpleEchoBot.Dialogs;
+using Microsoft.Bot.Builder.Luis;
+using System.Configuration;
+using System;
+using System.Linq;
 
 namespace Microsoft.Bot.Sample.SimpleEchoBot
 {
@@ -23,7 +27,12 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
             // check if activity is of type message
             if (activity != null && activity.GetActivityType() == ActivityTypes.Message)
             {
-                await Conversation.SendAsync(activity, () => new DialogoBot());
+                var attributes = new LuisModelAttribute(
+                    ConfigurationManager.AppSettings["LuisAppId"],
+                    ConfigurationManager.AppSettings["LuisAppKey"]);
+                var service = new LuisService(attributes);
+                await Conversation.SendAsync(activity, () => new DialogoLuis(service));
+                   
             }
             else
             {
@@ -44,6 +53,21 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
                 // Handle conversation state changes, like members being added and removed
                 // Use Activity.MembersAdded and Activity.MembersRemoved and Activity.Action for info
                 // Not available in all channels
+
+                IConversationUpdateActivity update = message;
+                var client = new ConnectorClient(new Uri(message.ServiceUrl), new MicrosoftAppCredentials());
+                if(update.MembersAdded!= null && update.MembersAdded.Any())
+                {
+                    foreach(var newMember in update.MembersAdded)
+                    {
+                        if(newMember.Id!= message.Recipient.Id)
+                        {
+                            var replay = message.CreateReply();
+                            replay.Text = $"Hola {newMember.Name}, Bienvenido mi nombre es Library Books Bot";
+                            client.Conversations.ReplyToActivityAsync(replay);
+                        }
+                    }
+                }
             }
             else if (message.Type == ActivityTypes.ContactRelationUpdate)
             {

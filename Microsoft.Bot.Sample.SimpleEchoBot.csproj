@@ -180,11 +180,13 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Dialogs\DialogoBot.cs" />
+    <Compile Include="Dialogs\DialogoLuis.cs" />
     <Compile Include="Dialogs\EchoDialog.cs" />
     <Compile Include="Extension\Utils.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Cursos.cs" />
     <Compile Include="Model\FakeData.cs" />
     <Compile Include="Model\Libros.cs" />

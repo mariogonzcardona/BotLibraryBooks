@@ -9,15 +9,15 @@ using System.Web;
 namespace SimpleEchoBot.Model
 {
     [Serializable]
-    public class Libros
+    public class Libros:BaseModel
     {
-        public String Titulo { get; set; }
-        public String Autor { get; set; }
+        //public String Titulo { get; set; }
+        //public String Autor { get; set; }
         public String Serie { get; set; }
         public String Etiqueta { get; set; }
         public String Formato { get; set; }
-        public String Intro { get; set; }
-        public String Foto { get; set; }
+        //public String Intro { get; set; }
+        //public String Foto { get; set; }
 
         public Libros() { }
 
@@ -32,7 +32,7 @@ namespace SimpleEchoBot.Model
             Foto = foto.Image2Base64();
         }
 
-        private Attachment ToAttachment(IDialogContext contect)
+        public override Attachment ToAttachment(IDialogContext context)
         {
             HeroCard hc = new HeroCard()
             {
@@ -51,13 +51,6 @@ namespace SimpleEchoBot.Model
 
         }
 
-        public IMessageActivity ToMessage(IDialogContext contect)
-        {
-            var replay = contect.MakeMessage();
-            replay.Attachments = new List<Attachment> {
-                ToAttachment(contect)
-            };
-            return replay;
-        }
+       
     }
 }
