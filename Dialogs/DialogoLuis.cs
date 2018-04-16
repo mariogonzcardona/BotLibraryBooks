@@ -30,7 +30,7 @@ namespace SimpleEchoBot.Dialogs
         public async Task WelcomeAsync(IDialogContext context, LuisResult result)
         {
             
-            await context.PostAsync("Hola buen dia, mi funcion es brindarte una pequeña guia sobre libros y cursos, que deseas saber?");
+            await context.PostAsync("Mi funcion es brindarte una pequeña guia sobre libros y cursos, que deseas saber?");
             context.Wait(MessageReceived);
         }
 
