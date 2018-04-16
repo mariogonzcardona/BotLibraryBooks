@@ -11,12 +11,12 @@ namespace SimpleEchoBot.Model
     [Serializable]
     public class Cursos
     {
-        public string Titulo { get; set; }
-        public string Autor { get; set; }
-        public string Intro { get; set; }
-        public string Clases { get; set; }
-        public string Horas { get; set; }
-        public string Foto { get; set; }
+        public String Titulo { get; set; }
+        public String Autor { get; set; }
+        public String Intro { get; set; }
+        public String Clases { get; set; }
+        public String Horas { get; set; }
+        public String Foto { get; set; }
 
         public Cursos() { }
 
@@ -30,21 +30,14 @@ namespace SimpleEchoBot.Model
             Foto = foto.Image2Base64();
         }
 
-        public IMessageActivity ToMessage(IDialogContext context)
-        {
-            var replay = context.MakeMessage();
-            replay.Attachments = new List<Attachment> {ToAttachment(context) };
-            return replay;
-        }
-
-        private Attachment ToAttachment(IDialogContext context)
+        private Attachment ToAttachment(IDialogContext contect)
         {
             HeroCard hc = new HeroCard()
             {
                 Title = Titulo,
                 Subtitle = Autor,
                 Text = Intro,
-                Images = new List<CardImage>()
+                Images = new List<CardImage>
                 {
                     new CardImage()
                     {
@@ -53,6 +46,16 @@ namespace SimpleEchoBot.Model
                 }
             };
             return hc.ToAttachment();
+
+        }
+
+        public IMessageActivity ToMessage(IDialogContext contect)
+        {
+            var replay = contect.MakeMessage();
+            replay.Attachments = new List<Attachment> {
+                ToAttachment(contect)
+            };
+            return replay;
         }
     }
 }

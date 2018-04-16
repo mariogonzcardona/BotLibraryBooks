@@ -14,11 +14,11 @@ namespace SimpleEchoBot.Dialogs
         public async Task StartAsync(IDialogContext context)
         {
             await context.PostAsync("Hola que tal Bienvenido mi nombre es Library Books Bot, ¿Que te gustaria saber?");
-            context.Wait(MessageReciveAsync);
+            context.Wait(MessageReceivedAsync);
 
         }
 
-        private async Task MessageReciveAsync(IDialogContext context, IAwaitable<object> result)
+        private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
         {
             ShowOption(context);
         }
@@ -26,7 +26,7 @@ namespace SimpleEchoBot.Dialogs
         private void ShowOption(IDialogContext context)
         {
             var opciones = new[] { "Libros", "Cursos" };
-            PromptDialog.Choice(context, OptionSelectAsync, opciones, "", "Elige una opcion correcta");
+            PromptDialog.Choice(context, OptionSelectAsync, opciones, "Que queires saber", "Elige una opcion Correcta");
 
         }
 
@@ -42,7 +42,7 @@ namespace SimpleEchoBot.Dialogs
                     break;
                 case "Cursos":
                     var choicesCursos = FakeData.Cursos.Keys.ToArray();
-                    PromptDialog.Choice(context, CurseSelectedAsync, choicesCursos, "Elige un Libro", "Eliga una opcion correcta");
+                    PromptDialog.Choice(context, CurseSelectedAsync, choicesCursos, "Elige un Curso", "Eliga una opcion correcta");
                     break;
                 default:
                     ShowOption(context);
@@ -53,10 +53,10 @@ namespace SimpleEchoBot.Dialogs
         private async Task BooksSelectedAsync(IDialogContext context, IAwaitable<string> result)
         {
             var opcion = await result;
-            var libos = FakeData.Libros.ContainsKey(opcion) ? FakeData.Libros[opcion] : null;
-            if(libos!=null)
+            var libros = FakeData.Libros.ContainsKey(opcion) ? FakeData.Libros[opcion] : null;
+            if(libros != null)
             {
-                await context.PostAsync(libos.ToMessage(context));
+                await context.PostAsync(libros.ToMessage(context));
             }
             else
             {

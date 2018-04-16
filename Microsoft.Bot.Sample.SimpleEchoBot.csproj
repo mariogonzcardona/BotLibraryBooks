@@ -187,9 +187,7 @@
     </Compile>
     <Compile Include="Model\Cursos.cs" />
     <Compile Include="Model\FakeData.cs" />
-    <Compile Include="Model\Generos.cs" />
     <Compile Include="Model\Libros.cs" />
-    <Compile Include="Model\Ubicaciones.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

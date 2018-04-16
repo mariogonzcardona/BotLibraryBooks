@@ -14,7 +14,6 @@ namespace SimpleEchoBot.Extension
             try
             {
                 var ruta = System.Web.Hosting.HostingEnvironment.MapPath(url);
-
                 using (Image image = Image.FromFile(ruta))
                 {
                     using (MemoryStream m = new MemoryStream())
@@ -27,14 +26,12 @@ namespace SimpleEchoBot.Extension
                         return $"data:image/jpg;base64,{base64String}";
                     }
                 }
-
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e);
                 return "";
             }
         }
-
     }
 }
