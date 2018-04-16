@@ -52,7 +52,7 @@ namespace SimpleEchoBot.Dialogs
                 var libro = FakeData.Libros.ContainsKey(nombreEntRec.Entity.ToLower()) ? FakeData.Libros[nombreEntRec.Entity.ToLower()] : null;
                 if(libro!=null)
                 {
-                    await context.PostAsync(libro.ToMessage(context));
+                    await context.PostAsync(libro.ToMessage(context)); 
                 }
                 else
                 {
